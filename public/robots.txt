@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lexicon.cherites.org/sitemap.xml

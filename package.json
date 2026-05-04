@@ -1,0 +1,38 @@
+{
+  "name": "lexicon",
+  "version": "1.0.0",
+  "description": "YouTube video playback with real-time translation for language learning",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@vicons/ionicons5": "^0.12.0",
+    "naive-ui": "^2.40.0",
+    "pinia": "^2.2.0",
+    "vue": "^3.5.0",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vue/test-utils": "^2.4.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vitest": "^2.0.0",
+    "vue-tsc": "^2.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "vue-demi"
+    ]
+  }
+}
