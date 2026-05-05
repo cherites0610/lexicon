@@ -72,5 +72,15 @@ function startTranslating() {
         </div>
       </div>
     </main>
+
+    <footer class="border-t border-neutral-800 px-6 py-6">
+      <div class="max-w-3xl mx-auto flex items-center justify-between flex-wrap gap-3">
+        <span class="text-neutral-600 text-sm">© 2026 Lexicon</span>
+        <div class="flex gap-4">
+          <router-link to="/terms" class="text-neutral-500 hover:text-neutral-300 text-sm transition-colors">服務條款</router-link>
+          <router-link to="/privacy" class="text-neutral-500 hover:text-neutral-300 text-sm transition-colors">隱私權政策</router-link>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
