@@ -24,12 +24,19 @@ function startTranslating() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-neutral-950 flex flex-col">
-    <header class="px-6 py-4 flex items-center">
+  <div class="min-h-screen bg-neutral-950 flex flex-col relative overflow-hidden">
+
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="glow-orb glow-orb--blue" />
+      <div class="glow-orb glow-orb--indigo" />
+      <div class="dot-grid" />
+    </div>
+
+    <header class="relative px-6 py-4 flex items-center">
       <span class="text-white font-bold text-xl tracking-tight">Lexicon</span>
     </header>
 
-    <main class="flex-1 flex flex-col items-center justify-center px-6 text-center gap-12 pb-24">
+    <main class="relative flex-1 flex flex-col items-center justify-center px-6 text-center gap-12 pb-24">
       <div class="flex flex-col items-center gap-6 max-w-2xl">
         <h1 class="text-5xl font-bold text-white leading-tight">
           邊看影片，<br />
@@ -73,7 +80,7 @@ function startTranslating() {
       </div>
     </main>
 
-    <footer class="border-t border-neutral-800 px-6 py-6">
+    <footer class="relative border-t border-neutral-800 px-6 py-6">
       <div class="max-w-3xl mx-auto flex items-center justify-between flex-wrap gap-3">
         <span class="text-neutral-600 text-sm">© 2026 Lexicon</span>
         <div class="flex gap-4">
@@ -84,3 +91,49 @@ function startTranslating() {
     </footer>
   </div>
 </template>
+
+<style scoped>
+@keyframes breathe {
+  0%, 100% { opacity: 0.07; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.12; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+@keyframes drift {
+  0%, 100% { opacity: 0.05; transform: translate(-50%, -50%) scale(1); }
+  40%       { opacity: 0.08; transform: translate(-46%, -54%) scale(1.1); }
+  70%       { opacity: 0.06; transform: translate(-54%, -46%) scale(0.95); }
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  will-change: transform, opacity;
+}
+
+.glow-orb--blue {
+  width: 640px;
+  height: 640px;
+  top: 40%;
+  left: 50%;
+  background: radial-gradient(circle, #3b82f6, transparent 70%);
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.glow-orb--indigo {
+  width: 480px;
+  height: 480px;
+  top: 30%;
+  left: 60%;
+  background: radial-gradient(circle, #6366f1, transparent 70%);
+  animation: drift 12s ease-in-out infinite;
+}
+
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #ffffff18 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
+}
+</style>
