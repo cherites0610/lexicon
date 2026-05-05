@@ -1,75 +1,76 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { SettingsOutline } from '@vicons/ionicons5'
-import VideoLoader from '../components/player/VideoLoader.vue'
-import VideoPlayer from '../components/player/VideoPlayer.vue'
-import TranslationInput from '../components/translation/TranslationInput.vue'
-import TranslationResult from '../components/translation/TranslationResult.vue'
-import ModelManager from '../components/models/ModelManager.vue'
-import { useGlobalShortcuts } from '../composables/useGlobalShortcuts'
-import TranslationHistory from '../components/translation/TranslationHistory.vue'
+import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
+import { PlayCircleOutline, BookOutline, FlashOutline } from '@vicons/ionicons5'
 
-const videoPlayerRef = ref<InstanceType<typeof VideoPlayer> | null>(null)
-const showSettings = ref(false)
-const showTranslationHistory = ref(false)
+const router = useRouter()
 
-const shortcuts = [
-  { desc: '播放 / 暫停', keys: ['Alt', 'Space'] },
-  { desc: '後退 5 秒', keys: ['Alt', 'A'] },
-  { desc: '前進 5 秒', keys: ['Alt', 'D'] },
-  { desc: '開啟 / 關閉字幕', keys: ['Alt', 'S'] },
-  { desc: '翻譯', keys: ['Enter'] },
-]
-
-useGlobalShortcuts({
-  onPlayPause: () => videoPlayerRef.value?.playPause(),
-  onToggleCaption: () => videoPlayerRef.value?.toggleCaption(),
-  onSeekBack: () => videoPlayerRef.value?.seekBy(-5),
-  onSeekForward: () => videoPlayerRef.value?.seekBy(5),
+useHead({
+  title: 'Lexicon — YouTube 影片即時翻譯學習平台',
+  meta: [
+    { name: 'description', content: 'Lexicon 整合 YouTube 影片播放與即時翻譯，讓你一邊看影片一邊查詢生詞，透過快捷鍵無縫控制播放，輕鬆提升英文能力。' },
+    { property: 'og:title', content: 'Lexicon — YouTube 影片即時翻譯學習平台' },
+    { property: 'og:description', content: '整合 YouTube 影片播放與即時翻譯，透過快捷鍵無縫控制播放，一邊看影片一邊查詢生詞。' },
+    { property: 'og:url', content: 'https://lexicon.cherites.org/' },
+    { name: 'twitter:title', content: 'Lexicon — YouTube 影片即時翻譯學習平台' },
+    { name: 'twitter:description', content: '整合 YouTube 影片播放與即時翻譯，透過快捷鍵無縫控制播放，一邊看影片一邊查詢生詞。' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://lexicon.cherites.org/' }],
 })
+
+function startTranslating() {
+  router.push({ name: 'translate' })
+}
 </script>
 
 <template>
-  <div class="h-screen bg-neutral-950 flex flex-col overflow-hidden">
-    <header class="bg-neutral-900 border-b border-neutral-800 px-4 py-2 flex items-center gap-3 shrink-0">
-      <h1 class="text-white font-bold text-lg tracking-tight shrink-0">Lexicon</h1>
-      <div class="flex-1" />
-      <VideoLoader />
-      <n-button quaternary @click="showSettings = true">
-        <template #icon>
-          <n-icon>
-            <SettingsOutline />
-          </n-icon>
-        </template>
-        模型設定
-      </n-button>
+  <div class="min-h-screen bg-neutral-950 flex flex-col">
+    <header class="px-6 py-4 flex items-center">
+      <span class="text-white font-bold text-xl tracking-tight">Lexicon</span>
     </header>
 
-    <main class="flex-1 p-3 overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3 h-full">
-        <VideoPlayer ref="videoPlayerRef" class="h-full" />
-        <div class="flex flex-col gap-3 min-h-0 overflow-y-auto">
-          <TranslationInput />
-          <TranslationResult />
-          <TranslationHistory />
-          <div class="mt-auto pt-1 flex flex-col gap-1.5">
-            <div v-for="shortcut in shortcuts" :key="shortcut.desc" class="flex items-center justify-between">
-              <span class="text-xs text-neutral-500">{{ shortcut.desc }}</span>
-              <div class="flex items-center gap-1">
-                <kbd v-for="key in shortcut.keys" :key="key"
-                  class="px-1.5 py-0.5 rounded text-xs font-mono bg-neutral-800 border border-neutral-700 text-neutral-400">{{
-                    key }}</kbd>
-              </div>
-            </div>
-          </div>
+    <main class="flex-1 flex flex-col items-center justify-center px-6 text-center gap-12 pb-24">
+      <div class="flex flex-col items-center gap-6 max-w-2xl">
+        <h1 class="text-5xl font-bold text-white leading-tight">
+          邊看影片，<br />
+          <span class="text-blue-400">邊學語言</span>
+        </h1>
+        <p class="text-neutral-400 text-lg leading-relaxed max-w-xl">
+          Lexicon 整合 YouTube 播放與 AI 即時翻譯，讓你在沉浸式觀看中查詢生詞，不中斷學習節奏。
+        </p>
+        <n-button type="primary" size="large" @click="startTranslating" class="mt-2">
+          <template #icon>
+            <n-icon>
+              <PlayCircleOutline />
+            </n-icon>
+          </template>
+          開始翻譯
+        </n-button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full">
+        <div class="bg-neutral-900 rounded-xl p-6 flex flex-col items-center gap-3 border border-neutral-800">
+          <n-icon size="32" class="text-blue-400">
+            <PlayCircleOutline />
+          </n-icon>
+          <h3 class="text-white font-semibold">YouTube 同步播放</h3>
+          <p class="text-neutral-500 text-sm text-center">貼上影片連結即可嵌入播放，快捷鍵操控不離手。</p>
+        </div>
+        <div class="bg-neutral-900 rounded-xl p-6 flex flex-col items-center gap-3 border border-neutral-800">
+          <n-icon size="32" class="text-blue-400">
+            <FlashOutline />
+          </n-icon>
+          <h3 class="text-white font-semibold">AI 即時翻譯</h3>
+          <p class="text-neutral-500 text-sm text-center">由 Gemini 驅動，輸入生詞即刻得到精準翻譯結果。</p>
+        </div>
+        <div class="bg-neutral-900 rounded-xl p-6 flex flex-col items-center gap-3 border border-neutral-800">
+          <n-icon size="32" class="text-blue-400">
+            <BookOutline />
+          </n-icon>
+          <h3 class="text-white font-semibold">查詢紀錄彙整</h3>
+          <p class="text-neutral-500 text-sm text-center">自動累積本次查詢紀錄，方便課後複習。</p>
         </div>
       </div>
     </main>
-
-    <n-drawer v-model:show="showSettings" width="320" placement="right">
-      <n-drawer-content title="模型設定" closable>
-        <ModelManager />
-      </n-drawer-content>
-    </n-drawer>
   </div>
 </template>

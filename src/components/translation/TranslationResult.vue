@@ -6,7 +6,7 @@ const { result, error, isLoading } = storeToRefs(useTranslationStore())
 </script>
 
 <template>
-  <div class="rounded-xl border border-neutral-700 bg-neutral-800/50 overflow-hidden min-h-32">
+  <div class="rounded-xl border border-neutral-700 bg-neutral-800/50 overflow-hidden min-h-40">
     <div v-if="isLoading" class="flex justify-center items-center py-10">
       <n-spin size="small" />
     </div>
@@ -16,10 +16,8 @@ const { result, error, isLoading } = storeToRefs(useTranslationStore())
     </n-alert>
 
     <template v-else-if="result">
-      <div
-        v-if="result.corrected"
-        class="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border-b border-amber-500/20"
-      >
+      <div v-if="result.corrected"
+        class="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border-b border-amber-500/20">
         <span class="text-xs text-amber-400 shrink-0">拼字修正</span>
         <span class="text-xs text-neutral-400">→</span>
         <span class="text-xs text-amber-300 font-medium">{{ result.corrected }}</span>
@@ -40,7 +38,7 @@ const { result, error, isLoading } = storeToRefs(useTranslationStore())
       </div>
     </template>
 
-    <div v-else class="flex items-center justify-center py-10">
+    <div v-else class="flex items-center justify-center h-40">
       <p class="text-neutral-500 text-sm">翻譯結果將顯示在此</p>
     </div>
   </div>

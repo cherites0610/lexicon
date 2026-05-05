@@ -9,6 +9,16 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+    {
+      path: '/translate',
+      name: 'translate',
+      component: () => import('../views/TranslateView.vue'),
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+    },
   ],
 })
 

@@ -2,7 +2,6 @@ import { onMounted, onUnmounted } from 'vue'
 
 export function useGlobalShortcuts(handlers: {
   onPlayPause: () => void
-  onToggleCaption: () => void
   onSeekBack: () => void
   onSeekForward: () => void
 }) {
@@ -10,15 +9,10 @@ export function useGlobalShortcuts(handlers: {
     if (!event.altKey) return
 
     switch (event.code) {
-      case 'Space':
-        event.preventDefault()
-        event.stopPropagation()
-        handlers.onPlayPause()
-        break
       case 'KeyS':
         event.preventDefault()
         event.stopPropagation()
-        handlers.onToggleCaption()
+        handlers.onPlayPause()
         break
       case 'KeyA':
         event.preventDefault()

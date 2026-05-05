@@ -29,5 +29,10 @@ export const useTranslationStore = defineStore('translation', () => {
     result.value = null
     error.value = null
   }
-  return { translationHistory, result, isLoading, error, setResult, setError, setLoading, clear }
+
+  function clearHistory() {
+    translationHistory.value = new Map();
+  }
+
+  return { translationHistory, result, isLoading, error, setResult, setError, setLoading, clear, clearHistory }
 })
