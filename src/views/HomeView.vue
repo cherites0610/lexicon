@@ -7,9 +7,11 @@ import TranslationInput from '../components/translation/TranslationInput.vue'
 import TranslationResult from '../components/translation/TranslationResult.vue'
 import ModelManager from '../components/models/ModelManager.vue'
 import { useGlobalShortcuts } from '../composables/useGlobalShortcuts'
+import TranslationHistory from '../components/translation/TranslationHistory.vue'
 
 const videoPlayerRef = ref<InstanceType<typeof VideoPlayer> | null>(null)
 const showSettings = ref(false)
+const showTranslationHistory = ref(false)
 
 const shortcuts = [
   { desc: '播放 / 暫停', keys: ['Alt', 'Space'] },
@@ -35,7 +37,9 @@ useGlobalShortcuts({
       <VideoLoader />
       <n-button quaternary @click="showSettings = true">
         <template #icon>
-          <n-icon><SettingsOutline /></n-icon>
+          <n-icon>
+            <SettingsOutline />
+          </n-icon>
         </template>
         模型設定
       </n-button>
@@ -47,15 +51,14 @@ useGlobalShortcuts({
         <div class="flex flex-col gap-3 min-h-0 overflow-y-auto">
           <TranslationInput />
           <TranslationResult />
+          <TranslationHistory />
           <div class="mt-auto pt-1 flex flex-col gap-1.5">
             <div v-for="shortcut in shortcuts" :key="shortcut.desc" class="flex items-center justify-between">
               <span class="text-xs text-neutral-500">{{ shortcut.desc }}</span>
               <div class="flex items-center gap-1">
-                <kbd
-                  v-for="key in shortcut.keys"
-                  :key="key"
-                  class="px-1.5 py-0.5 rounded text-xs font-mono bg-neutral-800 border border-neutral-700 text-neutral-400"
-                >{{ key }}</kbd>
+                <kbd v-for="key in shortcut.keys" :key="key"
+                  class="px-1.5 py-0.5 rounded text-xs font-mono bg-neutral-800 border border-neutral-700 text-neutral-400">{{
+                    key }}</kbd>
               </div>
             </div>
           </div>

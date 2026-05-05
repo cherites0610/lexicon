@@ -6,8 +6,13 @@ export const useTranslationStore = defineStore('translation', () => {
   const result = ref<TranslationResult | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const translationHistory = ref<Map<string, TranslationResult>>(new Map())
 
   function setResult(data: TranslationResult) {
+    if (translationHistory.value.has(data.english)) {
+      translationHistory.value.delete(data.english)
+    }
+    translationHistory.value.set(data.english, data)
     result.value = data
     error.value = null
   }
@@ -24,6 +29,5 @@ export const useTranslationStore = defineStore('translation', () => {
     result.value = null
     error.value = null
   }
-
-  return { result, isLoading, error, setResult, setError, setLoading, clear }
+  return { translationHistory, result, isLoading, error, setResult, setError, setLoading, clear }
 })
