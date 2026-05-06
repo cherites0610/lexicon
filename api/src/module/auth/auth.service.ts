@@ -33,23 +33,19 @@ export class AuthService {
   }
 
   handlerGoogleLoginCallback = async (code: string) => {
-    console.log(1);
     try {
       const { tokens } = await this.client.getToken(code)
       this.client.setCredentials(tokens)
-      console.log(2);
 
       const ticket = await this.client.verifyIdToken({
         idToken: tokens.id_token!,
         audience: this.configService.getOrThrow<string>('GOOGLE_CLIENT_ID')
       })
-      console.log(3);
 
       const payload = ticket.getPayload();
       if (!payload) throw new BadRequestException('非法Google Token')
 
       const { sub: googleId, email, name } = payload;
-      console.log(4);
 
       let user = await this.userRepository.findOneBy({ googleId })
 

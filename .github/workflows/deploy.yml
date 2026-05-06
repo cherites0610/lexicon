@@ -19,3 +19,4 @@ jobs:
             git pull origin main
             pnpm install
             pnpm run build
+            pm2 restart lexicon-api
